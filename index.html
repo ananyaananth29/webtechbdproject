@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+        <head>
+        <meta http-equiv="X-UA-Compatible" content="chrome=1, IE=9">
+        <meta name="viewport" content="initial-scale=1 maximum-scale=1 user-scalable=0 minimal-ui shrink-to-fit=no" />        
+        <script src="https://cdn.jsdelivr.net/npm/phaser@3.15.1/dist/phaser-arcade-physics.min.js"></script><!--adds scripts for phaser-->
+        <script src="https://s3.amazonaws.com/stitch-sdks/js/bundles/4.6.0/stitch.js"></script><!--this is stitch sdk(which is realm here)-->
+        <script src="./game.js"></script>
+        <style>
+            #ishost{
+                position:absolute; 
+                background-color: green; 
+                color: white; 
+                padding: 10px; 
+                bottom: 10px;
+                right: 10px;
+            }
+        </style>
+    </head>
+    <body style="margin: 0"><!-- to remove margin in css -->
+        <div style="position: absolute; background-color:green; padding: 10px; margin: 10px; color:#FFFFFF">
+            <div id="visitor">
+                <input id="gameid" type="text" placeholder="Game ID" value="player id"/> <!-- value="kruti"-->
+                <button id="creategame" type="button" onclick="joinOrCreateGame()">Create / Join</button>
+            </div>
+            <div id="information" display="display: none;">
+                Game ID:
+            </div>
+        </div>
+        <div id="ishost">
+            WELCOME TO PICTIONARY....
+        </div>
+        <div id="game" ></div>
+        <script>
+            const game=new Game({//this is to create a game or join a game 
+                "id":"game",//realm app id
+                "width":window.innerWidth,//to fit the window size
+                "height":window.innerHeight,
+                "realmAppId":"application-0-xmmkv",//app id in mongodb (we will get to know ehich application to connect to)
+                "databaseName":"mongo-draws",//mongodb databse name//mongo-draws
+                "collectionName":"game"//collection name we gave in mongodb//game
+        });
+       const joinOrCreateGame=()=>{
+        game.createOrJoin(document.getElementById("gameid").value);
+        //document.getElementById("ishost").innerHTML = result.authId == result.owner_id ? "You're the host!" : "You are not the host!";
+       }
+    </script>
+    </body>
+</html>
